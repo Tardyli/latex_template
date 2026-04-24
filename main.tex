@@ -49,6 +49,9 @@
 \newcommand{\thesisfrontpage}{%
     {\tnr\fontsize{9pt}{11pt}\selectfont\thepage}%
 }
+\newcommand{\thesispath}[1]{%
+    {\ttfamily\small\nolinkurl{#1}}%
+}
 
 \AtBeginDocument{\thesisbodyfont}
 \linespread{1.0}\selectfont
@@ -110,9 +113,9 @@
 \renewcommand{\cftsubsecpagefont}{\tnr\fontsize{12pt}{20pt}\selectfont}
 \renewcommand{\cftdotsep}{1}
 \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
-\renewcommand{\cftchappresnum}{第}
-\renewcommand{\cftchapaftersnum}{章\quad}
-\cftsetindents{chapter}{0em}{5.5em}
+\renewcommand{\cftchappresnum}{}
+\renewcommand{\cftchapaftersnum}{\quad}
+\cftsetindents{chapter}{0em}{4.6em}
 \cftsetindents{section}{2em}{4em}
 \cftsetindents{subsection}{4em}{5em}
 \setlength{\cftbeforechapskip}{0pt}

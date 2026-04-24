@@ -6,16 +6,16 @@
 \begin{table}[H]
 \centering
 \caption{系统关键实现文件及功能说明}
-\begin{tabular}{p{4cm}p{8.5cm}}
+\begin{tabular}{>{\raggedright\arraybackslash}p{4cm}p{8.5cm}}
 \toprule
 文件或目录 & 主要作用 \\
 \midrule
-\texttt{src/app.py} & 构建 Gradio 平台界面，调度预处理、训练、生成、序列构建、点云初始化和 AI 助手功能。 \\
-\texttt{src/preprocess\_mri.py} & 读取 NIfTI 格式 MRI 体数据，提取轴向切片，完成归一化、缩放、低质量切片过滤和 PNG 保存。 \\
-\texttt{src/stylegan2} & 提供 StyleGAN2-ADA 的数据打包、训练、生成器加载和图像推理能力。 \\
-\texttt{src/init\_pcd.py} & 将连续二维切片序列转换为 ASCII PLY 点云，作为后续 3DGS 优化的输入准备。 \\
-\texttt{results/training\_runs} & 保存训练配置、训练日志、真实样本网格和模型权重快照。 \\
-\texttt{results/generated\_slices} & 保存平台根据训练权重生成的 MRI 切片结果。 \\
+\thesispath{src/app.py} & 构建 Gradio 平台界面，调度预处理、训练、生成、序列构建、点云初始化和 AI 助手功能。 \\
+\thesispath{src/preprocess_mri.py} & 读取 NIfTI 格式 MRI 体数据，提取轴向切片，完成归一化、缩放、低质量切片过滤和 PNG 保存。 \\
+\thesispath{src/stylegan2} & 提供 StyleGAN2-ADA 的数据打包、训练、生成器加载和图像推理能力。 \\
+\thesispath{src/init_pcd.py} & 将连续二维切片序列转换为 ASCII PLY 点云，作为后续 3DGS 优化的输入准备。 \\
+\thesispath{results/training_runs} & 保存训练配置、训练日志、真实样本网格和模型权重快照。 \\
+\thesispath{results/generated_slices} & 保存平台根据训练权重生成的 MRI 切片结果。 \\
 \bottomrule
 \end{tabular}
 \end{table}
