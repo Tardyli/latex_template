@@ -1,4 +1,4 @@
-\documentclass[UTF8,12pt,a4paper,twoside,openright]{ctexrep}
+\documentclass[UTF8,12pt,a4paper,oneside,openany]{ctexrep}
 
 \usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=3cm,right=3cm]{geometry}
 \usepackage{fontspec}
@@ -122,6 +122,7 @@
 \makeatletter
 \newcommand{\customtableofcontents}{
     \chapter*{\contentsname}
+    \thispagestyle{thesis-front}
     \markboth{\thesisheadertext}{\thesisheadertext}
     \vspace{-10pt}
     \noindent\hfill{\songti\fontsize{12pt}{20pt}\selectfont 论文总页数：{\tnr\pageref{LastPage}}页}\par
@@ -132,6 +133,7 @@
 \fancypagestyle{thesis-decl}{
     \fancyhf{}
     \fancyhead[C]{{\songti\fontsize{9pt}{11pt}\selectfont \thesisheadertext}}
+    \fancyfoot[C]{\thesisfrontpage}
     \renewcommand{\headrulewidth}{0.4pt}
     \renewcommand{\footrulewidth}{0pt}
 }
@@ -152,6 +154,14 @@
     \renewcommand{\footrulewidth}{0pt}
 }
 
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyhead[C]{{\songti\fontsize{9pt}{11pt}\selectfont \thesisheadertext}}
+    \fancyfoot[C]{\thesispageline}
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+
 \defbibheading{bibintoc}[\bibname]{%
     \chapter*{#1}
     \addcontentsline{toc}{chapter}{#1}
@@ -163,25 +173,25 @@
 
 \pagestyle{empty}
 \input{sections/cover}
-\input{sections/title_page}
-
-\pagestyle{thesis-decl}
-\input{sections/originality_statement}
-\cleardoublepage
-
-\input{sections/authorization}
-\cleardoublepage
 
 \pagenumbering{roman}
+\setcounter{page}{1}
+\pagestyle{thesis-decl}
+\input{sections/originality_statement}
+\clearpage
+
+\input{sections/authorization}
+\clearpage
+
 \pagestyle{thesis-front}
 \input{sections/abstract_cn}
-\cleardoublepage
+\clearpage
 
 \input{sections/abstract_en}
-\cleardoublepage
+\clearpage
 
 \customtableofcontents
-\cleardoublepage
+\clearpage
 
 \pagenumbering{arabic}
 \pagestyle{thesis-main}
@@ -193,13 +203,13 @@
 \input{sections/chapter6}
 \input{sections/chapter7}
 
-\cleardoublepage
+\clearpage
 \printbibliography[heading=bibintoc,title=参考文献]
 
-\cleardoublepage
+\clearpage
 \input{sections/appendix}
 
-\cleardoublepage
+\clearpage
 \input{sections/acknowledgements}
 
 \end{document}
