@@ -1,0 +1,201 @@
+\documentclass[UTF8,12pt,a4paper,twoside,openright]{ctexrep}
+
+\usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=3cm,right=3cm]{geometry}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\newfontfamily\tnr{Times New Roman}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{amsmath,amssymb}
+\usepackage[labelsep=space]{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{lastpage}
+\usepackage[backend=biber,style=gb7714-2015]{biblatex}
+
+\addbibresource{bib/references.bib}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    urlcolor=black
+}
+
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0pt}
+\setlength{\headheight}{14.5pt}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+
+\newcommand{\thesisheadertext}{成都信息工程大学学士学位论文}
+\newcommand{\thesisbodyfont}{\songti\fontsize{12pt}{20pt}\selectfont}
+\newcommand{\thesiswuhao}{\songti\fontsize{10.5pt}{15pt}\selectfont}
+\newcommand{\thesissmallfive}{\songti\fontsize{9pt}{11pt}\selectfont}
+\newcommand{\thesispageline}{%
+    {\thesissmallfive 第{\tnr\thepage}页\quad 共{\tnr\pageref{LastPage}}页}%
+}
+\newcommand{\thesisfrontpage}{%
+    {\tnr\fontsize{9pt}{11pt}\selectfont\thepage}%
+}
+
+\AtBeginDocument{\thesisbodyfont}
+\linespread{1.0}\selectfont
+
+\DeclareCaptionFont{thesiscaptionfont}{\songti\fontsize{10.5pt}{15pt}\selectfont}
+\captionsetup{
+    font=thesiscaptionfont,
+    labelfont=normalfont,
+    textfont=normalfont,
+    justification=centering,
+    singlelinecheck=false
+}
+\captionsetup*[figure]{position=bottom,skip=6pt}
+\captionsetup*[table]{position=top,skip=6pt}
+\renewcommand{\figurename}{图}
+\renewcommand{\tablename}{表}
+
+\numberwithin{figure}{chapter}
+\numberwithin{table}{chapter}
+\numberwithin{equation}{chapter}
+\renewcommand{\thefigure}{\arabic{chapter}-\arabic{figure}}
+\renewcommand{\thetable}{\arabic{chapter}-\arabic{table}}
+\renewcommand{\theequation}{\arabic{chapter}-\arabic{equation}}
+
+\titleformat{\chapter}
+    {\centering\songti\bfseries\fontsize{16pt}{20pt}\selectfont}
+    {第\arabic{chapter}章}
+    {1em}
+    {}
+\titleformat{\section}
+    {\songti\bfseries\fontsize{14pt}{20pt}\selectfont}
+    {\thesection}
+    {1em}
+    {}
+\titleformat{\subsection}
+    {\songti\bfseries\fontsize{12pt}{20pt}\selectfont}
+    {\thesubsection}
+    {1em}
+    {}
+\titleformat{\subsubsection}
+    {\songti\fontsize{12pt}{20pt}\selectfont}
+    {\thesubsubsection}
+    {1em}
+    {}
+
+\titlespacing*{\chapter}{0pt}{0pt}{20pt}
+\titlespacing*{\section}{0pt}{12pt}{6pt}
+\titlespacing*{\subsection}{0pt}{12pt}{6pt}
+\titlespacing*{\subsubsection}{0pt}{6pt}{6pt}
+
+\renewcommand{\contentsname}{目\quad 录}
+\renewcommand{\cfttoctitlefont}{\hfill\songti\bfseries\fontsize{16pt}{20pt}\selectfont}
+\renewcommand{\cftaftertoctitle}{\hfill}
+\renewcommand{\cftchapfont}{\songti\fontsize{12pt}{20pt}\selectfont}
+\renewcommand{\cftsecfont}{\songti\fontsize{12pt}{20pt}\selectfont}
+\renewcommand{\cftsubsecfont}{\songti\fontsize{12pt}{20pt}\selectfont}
+\renewcommand{\cftchappagefont}{\tnr\fontsize{12pt}{20pt}\selectfont}
+\renewcommand{\cftsecpagefont}{\tnr\fontsize{12pt}{20pt}\selectfont}
+\renewcommand{\cftsubsecpagefont}{\tnr\fontsize{12pt}{20pt}\selectfont}
+\renewcommand{\cftdotsep}{1}
+\cftsetindents{chapter}{0em}{5em}
+\cftsetindents{section}{2em}{4em}
+\cftsetindents{subsection}{4em}{5em}
+\setlength{\cftbeforechapskip}{0pt}
+\setlength{\cftbeforesecskip}{0pt}
+\setlength{\cftbeforesubsecskip}{0pt}
+
+\makeatletter
+\newcommand{\customtableofcontents}{
+    \chapter*{\contentsname}
+    \markboth{\thesisheadertext}{\thesisheadertext}
+    \noindent\hfill{\songti\fontsize{12pt}{20pt}\selectfont 论文总页数：{\tnr\pageref{LastPage}}页}\par
+    \vspace{0.5em}
+    \@starttoc{toc}
+}
+\makeatother
+
+\fancypagestyle{thesis-decl}{
+    \fancyhf{}
+    \fancyhead[C]{{\songti\fontsize{9pt}{11pt}\selectfont \thesisheadertext}}
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+
+\fancypagestyle{thesis-front}{
+    \fancyhf{}
+    \fancyhead[C]{{\songti\fontsize{9pt}{11pt}\selectfont \thesisheadertext}}
+    \fancyfoot[C]{\thesisfrontpage}
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+
+\fancypagestyle{thesis-main}{
+    \fancyhf{}
+    \fancyhead[C]{{\songti\fontsize{9pt}{11pt}\selectfont \thesisheadertext}}
+    \fancyfoot[C]{\thesispageline}
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+
+\defbibheading{bibintoc}[\bibname]{%
+    \chapter*{#1}
+    \addcontentsline{toc}{chapter}{#1}
+    \markboth{\thesisheadertext}{\thesisheadertext}
+}
+\renewcommand*{\bibfont}{\songti\fontsize{10.5pt}{20pt}\selectfont}
+
+\begin{document}
+
+\pagestyle{empty}
+\input{sections/cover}
+\cleardoublepage
+
+\pagestyle{thesis-decl}
+\input{sections/originality_statement}
+\cleardoublepage
+
+\input{sections/authorization}
+\cleardoublepage
+
+\pagenumbering{roman}
+\pagestyle{thesis-front}
+\input{sections/abstract_cn}
+\cleardoublepage
+
+\input{sections/abstract_en}
+\cleardoublepage
+
+\customtableofcontents
+\cleardoublepage
+
+\pagenumbering{arabic}
+\pagestyle{thesis-main}
+\input{sections/chapter1}
+\input{sections/chapter2}
+\input{sections/chapter3}
+\input{sections/chapter4}
+\input{sections/chapter5}
+\input{sections/chapter6}
+\input{sections/chapter7}
+
+\cleardoublepage
+\nocite{*}
+\printbibliography[heading=bibintoc,title=参考文献]
+
+\cleardoublepage
+\input{sections/appendix}
+
+\cleardoublepage
+\input{sections/acknowledgements}
+
+\end{document}
