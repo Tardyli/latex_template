@@ -1,7 +1,7 @@
 \chapter{测试与结果分析}
 
 \section{实验环境与证据材料}
-本文实验以 IXI T1 脑部 MRI 数据为主要数据来源。原始数据为 NIfTI 格式体数据，经预处理后转换为 PNG 格式二维切片，并进一步打包为 StyleGAN2 训练所需的数据集。根据当前训练配置文件，训练数据路径为 \texttt{data/processed/mri128.zip}，训练集最大规模为 60815 张切片，图像分辨率为 $128\times128$。
+本文实验以 IXI T1 脑部 MRI 数据为主要数据来源。原始数据为 NIfTI 格式体数据，经预处理后转换为 PNG 格式二维切片，并进一步打包为 StyleGAN2 训练所需的数据集。根据本次训练配置文件，训练数据路径为 \texttt{data/processed/mri128.zip}，训练集最大规模为 60815 张切片，图像分辨率为 $128\times128$。
 
 为了保证论文实验结论能够追溯到真实项目产物，本文将训练日志、训练配置、模型权重、生成切片、点云文件和三维表达代码作为主要证据材料。相关材料均来自项目目录 \texttt{MRI\_Platform/results} 和 \texttt{MRI\_Platform/src}，其中 StyleGAN2 训练权重、生成图像、三维点云和 3DGS 三维表达模块均已形成可检查文件。
 
@@ -16,8 +16,9 @@ StyleGAN2 训练配置 & \thesispath{results/training_runs/00000-.../training_op
 StyleGAN2 训练日志 & \thesispath{results/training_runs/00000-.../log.txt} & 已确认 \\
 训练样本网格 & \thesispath{results/training_runs/00000-.../reals.png} & 已确认 \\
 可加载模型权重 & \thesispath{results/training_runs/network-snapshot-010000.pkl} & 已确认 \\
-生成切片示例 & \thesispath{results/generated_slices/seed0123.png} & 已确认 \\
+生成切片示例 & \thesispath{results/generated_slices/seed0042.png} & 已确认 \\
 三维点云文件 & \thesispath{results/3d_model_test/init_point_cloud.ply} & 已确认 \\
+点云复核样例 & \thesispath{results/check_3d_model/init_point_cloud.ply} & 已确认 \\
 3DGS 三维表达代码 & \thesispath{src/gaussian_splatting} 与点云初始化脚本 & 已确认 \\
 \bottomrule
 \end{tabular}
@@ -59,13 +60,23 @@ ADA 目标值 & 0.6 \\
 训练完成后，项目得到可加载的模型快照 \texttt{network-snapshot-010000.pkl}，文件大小约 283 MB。平台能够读取该权重并生成 MRI 切片，说明模型权重加载、潜变量采样、生成器推理、图像张量转换和 PNG 保存等环节已经连通。本文实验评价以工程链路可用性、生成结果可视化、点云文件可追溯性和平台功能测试为主，能够支撑毕业设计系统实现与展示目标。
 
 \section{二维切片生成结果分析}
-平台生成的示例切片如图 \ref{fig:generated-seed0123} 所示。该图来自生成切片结果目录，由当前 StyleGAN2 权重生成。生成结果能够呈现脑部 MRI 切片的基本灰度结构，说明训练权重已经能够被平台推理模块正确调用。
+平台生成的示例切片如图 \ref{fig:generated-slices} 所示。该图来自生成切片结果目录，由本次 StyleGAN2 权重生成。生成结果能够呈现脑部 MRI 切片的基本灰度结构，说明训练权重已经能够被平台推理模块正确调用。
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.35\textwidth]{figures/generated_seed0123.png}
+\begin{subfigure}{0.32\textwidth}
+\centering
+\includegraphics[width=\textwidth]{figures/generated_seed0123.png}
+\caption{随机种子 123}
+\end{subfigure}
+\hspace{0.08\textwidth}
+\begin{subfigure}{0.32\textwidth}
+\centering
+\includegraphics[width=\textwidth]{figures/generated_seed0042.png}
+\caption{随机种子 42}
+\end{subfigure}
 \caption{StyleGAN2 生成的 MRI 切片示例}
-\label{fig:generated-seed0123}
+\label{fig:generated-slices}
 \end{figure}
 
 从系统实现角度看，二维切片生成链路已经具备完整闭环。用户在平台中指定模型权重、生成数量、截断参数和随机种子后，系统自动完成潜变量采样、生成器前向推理、灰度图像转换和结果保存。截断参数 \texttt{truncation\_psi} 可用于控制生成结果的稳定性与多样性，随机种子则保证同一参数组合下结果具有可复现性。该功能不仅用于生成论文展示图，也为连续切片序列和点云初始化提供输入。
@@ -73,14 +84,14 @@ ADA 目标值 & 0.6 \\
 医学图像生成质量不能只依赖单张图像的主观观感，还需要从分布一致性、解剖结构合理性和系统可用性等角度分析。本文结合真实切片样本网格、生成切片示例、模型权重加载结果和平台功能测试进行综合评价，重点说明生成链路是否完整、结果是否可复现、输出是否能够服务于三维表达和教学展示。
 
 \section{平台功能测试}
-平台功能测试主要验证数据预处理、模型训练入口、切片生成、连续序列生成、点云初始化和 AI 助手等流程是否能够按照预期运行。当前测试结果表明，平台主页、参数输入组件和 Gradio 后端服务能够正常访问；生成模块能够调用训练完成的权重生成 PNG 切片；点云初始化模块能够从切片目录生成 PLY 文件。
+平台功能测试主要验证数据预处理、模型训练入口、切片生成、连续序列生成、点云初始化和 AI 助手等流程是否能够按照预期运行。测试结果表明，平台主页、参数输入组件和 Gradio 后端服务能够正常访问；生成模块能够调用训练完成的权重生成 PNG 切片；点云初始化模块能够从切片目录生成 PLY 文件。
 
 \begin{table}[H]
 \centering
 \caption{平台主要功能测试结果}
 \begin{tabular}{>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{5.2cm}>{\raggedright\arraybackslash}p{4.8cm}}
 \toprule
-测试模块 & 测试内容 & 当前结果 \\
+测试模块 & 测试内容 & 测试结果 \\
 \midrule
 数据预处理 & NIfTI 读取、轴向切片、归一化、缩放和 PNG 保存 & 已实现，可按数据目录批量处理 \\
 模型训练 & 自动识别训练数据并启动 StyleGAN2 训练 & 已实现，训练结果已存在 \\
@@ -122,6 +133,7 @@ AI 助手 & 参数说明和平台问答 & 已实现，依赖外部 API \\
 三维文件 & \thesispath{results/3d_model_test/init_point_cloud.ply} & 以 ASCII PLY 格式保存，可被常见点云工具读取 \\
 顶点数量 & 477426 个 & 由 PLY 文件头部信息确认 \\
 文件大小 & 约 13 MB & 保存三维坐标与灰度颜色信息 \\
+复核样例 & 31980 个顶点 & \thesispath{results/check_3d_model/init_point_cloud.ply} 用于验证脚本输出稳定性 \\
 顶点属性 & $x,y,z$ 坐标与 RGB 颜色 & 支撑空间结构和灰度强度的联合表达 \\
 \bottomrule
 \end{tabular}

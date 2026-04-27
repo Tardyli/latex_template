@@ -4,6 +4,9 @@
 \usepackage{fontspec}
 \setmainfont{Times New Roman}
 \newfontfamily\tnr{Times New Roman}
+\setCJKmainfont[AutoFakeBold=2.5]{SimSun}
+\setCJKfamilyfont{zhsong}[AutoFakeBold=2.5]{SimSun}
+\setCJKfamilyfont{zhhei}[AutoFakeBold=2.5]{SimHei}
 \usepackage{setspace}
 \usepackage{graphicx}
 \usepackage{booktabs}
@@ -78,7 +81,7 @@
 
 \titleformat{\chapter}
     {\centering\songti\bfseries\fontsize{16pt}{20pt}\selectfont}
-    {第\arabic{chapter}章}
+    {\thechapter}
     {1em}
     {}
 \titleformat{\section}
