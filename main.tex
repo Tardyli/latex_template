@@ -8,22 +8,36 @@
 }{%
     \PackageError{cuit-thesis}{Required font Times New Roman not found}{Install Times New Roman, or upload it to the Overleaf project and update the font configuration.}
 }
-\IfFontExistsTF{SimSun}{%
-    \setCJKmainfont[AutoFakeBold=2.5]{SimSun}
-    \setCJKfamilyfont{zhsong}[AutoFakeBold=2.5]{SimSun}
-    \setCJKmonofont[AutoFakeBold=2.5]{SimSun}
+\IfFileExists{fonts/simsun.ttc}{%
+    \setCJKmainfont[Path=fonts/,AutoFakeBold=2.5]{simsun.ttc}
+    \setCJKfamilyfont{zhsong}[Path=fonts/,AutoFakeBold=2.5]{simsun.ttc}
+    \setCJKmonofont[Path=fonts/,AutoFakeBold=2.5]{simsun.ttc}
 }{%
-    \PackageError{cuit-thesis}{Required font SimSun not found}{Install SimSun, or upload simsun.ttc to the Overleaf project and update the font configuration.}
+    \IfFontExistsTF{SimSun}{%
+        \setCJKmainfont[AutoFakeBold=2.5]{SimSun}
+        \setCJKfamilyfont{zhsong}[AutoFakeBold=2.5]{SimSun}
+        \setCJKmonofont[AutoFakeBold=2.5]{SimSun}
+    }{%
+        \PackageError{cuit-thesis}{Required font SimSun not found}{Upload fonts/simsun.ttc to the Overleaf project, or compile on a system with SimSun installed.}
+    }
 }
-\IfFontExistsTF{SimHei}{%
-    \setCJKfamilyfont{zhhei}[AutoFakeBold=2.5]{SimHei}
+\IfFileExists{fonts/simhei.ttf}{%
+    \setCJKfamilyfont{zhhei}[Path=fonts/,AutoFakeBold=2.5]{simhei.ttf}
 }{%
-    \PackageError{cuit-thesis}{Required font SimHei not found}{Install SimHei, or upload simhei.ttf to the Overleaf project and update the font configuration.}
+    \IfFontExistsTF{SimHei}{%
+        \setCJKfamilyfont{zhhei}[AutoFakeBold=2.5]{SimHei}
+    }{%
+        \PackageError{cuit-thesis}{Required font SimHei not found}{Upload fonts/simhei.ttf to the Overleaf project, or compile on a system with SimHei installed.}
+    }
 }
-\IfFontExistsTF{FangSong}{%
-    \setCJKfamilyfont{zhfs}[AutoFakeBold=2.5]{FangSong}
+\IfFileExists{fonts/simfang.ttf}{%
+    \setCJKfamilyfont{zhfs}[Path=fonts/,AutoFakeBold=2.5]{simfang.ttf}
 }{%
-    \PackageError{cuit-thesis}{Required font FangSong not found}{Install FangSong, or upload simfang.ttf to the Overleaf project and update the font configuration.}
+    \IfFontExistsTF{FangSong}{%
+        \setCJKfamilyfont{zhfs}[AutoFakeBold=2.5]{FangSong}
+    }{%
+        \PackageError{cuit-thesis}{Required font FangSong not found}{Upload fonts/simfang.ttf to the Overleaf project, or compile on a system with FangSong installed.}
+    }
 }
 \newcommand{\songti}{\CJKfamily{zhsong}}
 \newcommand{\heiti}{\CJKfamily{zhhei}}
