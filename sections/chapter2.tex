@@ -39,7 +39,9 @@ G_i(x)=\exp\left(-\frac{1}{2}(x-\mu_i)^{T}\Sigma_i^{-1}(x-\mu_i)\right).
 
 在本项目中，3DGS 主要用于三维表达和平台展示。系统通过 StyleGAN2 生成或组织连续切片后，按照 $z$ 轴顺序堆叠切片，并把非背景像素转换为带灰度颜色的空间点，形成 PLY 初始点云。该点云既是 3DGS 训练输入，也是平台进行 2D/3D 对比展示的重要材料。
 
-\section{Gradio 交互平台与工程支撑技术}
-Gradio 是一个 Python 工具，可以把机器学习模型封装为 Web 界面\cite{abid2019gradio}。在本文平台中，Gradio 主要用于组织交互流程。用户可以通过界面填写路径、设置参数、启动任务、查看图像和读取日志。
+\section{FastAPI、React 与前后端分离技术}
+当前系统采用 FastAPI + React 的前后端分离架构。FastAPI 是一个基于 Python 类型标注构建 API 的 Web 框架，支持自动生成接口文档，并适合组织数据查询、任务启动、结果分析和 WebSocket 通信等后端能力\cite{fastapiDocs}。本项目后端使用 Uvicorn 运行 FastAPI 应用。Uvicorn 是 Python 生态中的 ASGI Web 服务器，支持 HTTP 和 WebSocket 等通信方式\cite{uvicornDocs}。
 
-本文平台以 Python 为主要开发语言。系统使用 PyTorch 支撑 StyleGAN2 训练与推理，使用 PIL、NumPy 和 nibabel 处理图像及医学体数据，使用 Gradio 构建交互界面。系统还通过子进程调度预处理、训练、生成和点云初始化脚本。该技术组合便于复用开源框架，也便于毕业设计阶段的开发和展示。
+前端采用 React 构建交互界面。React 适合把复杂界面拆分为可复用组件\cite{reactDocs}。本文平台中的仪表盘、生成工作台、医学影像查看器、任务中心、点云展示和 AI 助手都以组件形式组织。项目使用 Vite 作为前端开发与构建工具。Vite 提供开发服务器和构建能力，适合 React 项目的本地调试和打包\cite{viteDocs}。
+
+本文平台以 Python 和 TypeScript 为主要开发语言。后端使用 PyTorch 支撑 StyleGAN2 训练与推理，使用 PIL、NumPy 和 nibabel 处理图像及医学体数据，并通过子进程调度预处理、训练、生成和点云初始化脚本。前端通过统一 API 客户端访问后端接口，并使用 Cornerstone3D、Three.js、vtk.js 和 ECharts 等库完成医学影像浏览、点云展示、体渲染和指标可视化。该技术组合把计算任务、接口服务和浏览器交互分开，便于维护和展示。
