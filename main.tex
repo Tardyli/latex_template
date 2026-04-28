@@ -152,10 +152,10 @@
 \renewcommand{\cftdotsep}{1}
 \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
 \renewcommand{\cftchappresnum}{}
-\renewcommand{\cftchapaftersnum}{\quad}
-\cftsetindents{chapter}{0em}{4.6em}
-\cftsetindents{section}{2em}{4em}
-\cftsetindents{subsection}{4em}{5em}
+\renewcommand{\cftchapaftersnum}{\hspace{0.5em}}
+\cftsetindents{chapter}{0em}{3.8em}
+\cftsetindents{section}{2em}{3.2em}
+\cftsetindents{subsection}{4em}{4.2em}
 \setlength{\cftbeforechapskip}{0pt}
 \setlength{\cftbeforesecskip}{0pt}
 \setlength{\cftbeforesubsecskip}{0pt}
@@ -165,7 +165,7 @@
     \chapter*{\contentsname}
     \thispagestyle{thesis-front}
     \markboth{\thesisheadertext}{\thesisheadertext}
-    \vspace{-10pt}
+    \vspace{0pt}
     \noindent\hfill{\songti\fontsize{12pt}{20pt}\selectfont 论文总页数：{\tnr\pageref{LastPage}}页}\par
     \@starttoc{toc}
 }
