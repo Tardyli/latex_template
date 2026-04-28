@@ -1,4 +1,4 @@
-\documentclass[UTF8,12pt,a4paper,oneside,openany]{ctexrep}
+\documentclass[UTF8,12pt,a4paper,oneside,openany,fontset=none]{ctexrep}
 
 \usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=3cm,right=3cm]{geometry}
 \usepackage{fontspec}
@@ -21,11 +21,19 @@
 }{%
     \setCJKfamilyfont{zhhei}[AutoFakeBold=2.5]{FandolHei-Regular}
 }
+\IfFontExistsTF{SimSun}{%
+    \setCJKmonofont[AutoFakeBold=2.5]{SimSun}
+}{%
+    \setCJKmonofont[AutoFakeBold=2.5]{FandolSong-Regular}
+}
 \IfFontExistsTF{FangSong}{%
     \setCJKfamilyfont{zhfs}[AutoFakeBold=2.5]{FangSong}
 }{%
     \setCJKfamilyfont{zhfs}[AutoFakeBold=2.5]{FandolFang-Regular}
 }
+\newcommand{\songti}{\CJKfamily{zhsong}}
+\newcommand{\heiti}{\CJKfamily{zhhei}}
+\newcommand{\fangsong}{\CJKfamily{zhfs}}
 \usepackage{setspace}
 \usepackage{graphicx}
 \usepackage{booktabs}
