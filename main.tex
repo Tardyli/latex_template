@@ -2,11 +2,30 @@
 
 \usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=3cm,right=3cm]{geometry}
 \usepackage{fontspec}
-\setmainfont{Times New Roman}
-\newfontfamily\tnr{Times New Roman}
-\setCJKmainfont[AutoFakeBold=2.5]{SimSun}
-\setCJKfamilyfont{zhsong}[AutoFakeBold=2.5]{SimSun}
-\setCJKfamilyfont{zhhei}[AutoFakeBold=2.5]{SimHei}
+\IfFontExistsTF{Times New Roman}{%
+    \setmainfont{Times New Roman}
+    \newfontfamily\tnr{Times New Roman}
+}{%
+    \setmainfont{TeX Gyre Termes}
+    \newfontfamily\tnr{TeX Gyre Termes}
+}
+\IfFontExistsTF{SimSun}{%
+    \setCJKmainfont[AutoFakeBold=2.5]{SimSun}
+    \setCJKfamilyfont{zhsong}[AutoFakeBold=2.5]{SimSun}
+}{%
+    \setCJKmainfont[AutoFakeBold=2.5]{FandolSong-Regular}
+    \setCJKfamilyfont{zhsong}[AutoFakeBold=2.5]{FandolSong-Regular}
+}
+\IfFontExistsTF{SimHei}{%
+    \setCJKfamilyfont{zhhei}[AutoFakeBold=2.5]{SimHei}
+}{%
+    \setCJKfamilyfont{zhhei}[AutoFakeBold=2.5]{FandolHei-Regular}
+}
+\IfFontExistsTF{FangSong}{%
+    \setCJKfamilyfont{zhfs}[AutoFakeBold=2.5]{FangSong}
+}{%
+    \setCJKfamilyfont{zhfs}[AutoFakeBold=2.5]{FandolFang-Regular}
+}
 \usepackage{setspace}
 \usepackage{graphicx}
 \usepackage{booktabs}
