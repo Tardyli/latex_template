@@ -6,30 +6,24 @@
     \setmainfont{Times New Roman}
     \newfontfamily\tnr{Times New Roman}
 }{%
-    \setmainfont{TeX Gyre Termes}
-    \newfontfamily\tnr{TeX Gyre Termes}
+    \PackageError{cuit-thesis}{Required font Times New Roman not found}{Install Times New Roman, or upload it to the Overleaf project and update the font configuration.}
 }
 \IfFontExistsTF{SimSun}{%
     \setCJKmainfont[AutoFakeBold=2.5]{SimSun}
     \setCJKfamilyfont{zhsong}[AutoFakeBold=2.5]{SimSun}
+    \setCJKmonofont[AutoFakeBold=2.5]{SimSun}
 }{%
-    \setCJKmainfont[AutoFakeBold=2.5]{FandolSong-Regular}
-    \setCJKfamilyfont{zhsong}[AutoFakeBold=2.5]{FandolSong-Regular}
+    \PackageError{cuit-thesis}{Required font SimSun not found}{Install SimSun, or upload simsun.ttc to the Overleaf project and update the font configuration.}
 }
 \IfFontExistsTF{SimHei}{%
     \setCJKfamilyfont{zhhei}[AutoFakeBold=2.5]{SimHei}
 }{%
-    \setCJKfamilyfont{zhhei}[AutoFakeBold=2.5]{FandolHei-Regular}
-}
-\IfFontExistsTF{SimSun}{%
-    \setCJKmonofont[AutoFakeBold=2.5]{SimSun}
-}{%
-    \setCJKmonofont[AutoFakeBold=2.5]{FandolSong-Regular}
+    \PackageError{cuit-thesis}{Required font SimHei not found}{Install SimHei, or upload simhei.ttf to the Overleaf project and update the font configuration.}
 }
 \IfFontExistsTF{FangSong}{%
     \setCJKfamilyfont{zhfs}[AutoFakeBold=2.5]{FangSong}
 }{%
-    \setCJKfamilyfont{zhfs}[AutoFakeBold=2.5]{FandolFang-Regular}
+    \PackageError{cuit-thesis}{Required font FangSong not found}{Install FangSong, or upload simfang.ttf to the Overleaf project and update the font configuration.}
 }
 \newcommand{\songti}{\CJKfamily{zhsong}}
 \newcommand{\heiti}{\CJKfamily{zhhei}}
@@ -74,7 +68,7 @@
 \newcommand{\thesiswuhao}{\songti\fontsize{10.5pt}{15pt}\selectfont}
 \newcommand{\thesissmallfive}{\songti\fontsize{9pt}{11pt}\selectfont}
 \newcommand{\thesispageline}{%
-    {\thesissmallfive 第{\tnr\thepage}页 共{\tnr\pageref{LastPage}}页}%
+    {\thesissmallfive 第{\tnr\thepage}页\quad 共{\tnr\pageref{LastPage}}页}%
 }
 \newcommand{\thesisfrontpage}{%
     {\tnr\fontsize{9pt}{11pt}\selectfont\thepage}%
@@ -166,7 +160,7 @@
 \fancypagestyle{thesis-decl}{
     \fancyhf{}
     \fancyhead[C]{{\songti\fontsize{9pt}{11pt}\selectfont \thesisheadertext}}
-    \fancyfoot[C]{\thesisfrontpage}
+    \fancyfoot[C]{\thesispageline}
     \renewcommand{\headrulewidth}{0.4pt}
     \renewcommand{\footrulewidth}{0pt}
 }
@@ -174,7 +168,7 @@
 \fancypagestyle{thesis-front}{
     \fancyhf{}
     \fancyhead[C]{{\songti\fontsize{9pt}{11pt}\selectfont \thesisheadertext}}
-    \fancyfoot[C]{\thesisfrontpage}
+    \fancyfoot[C]{\thesispageline}
     \renewcommand{\headrulewidth}{0.4pt}
     \renewcommand{\footrulewidth}{0pt}
 }
@@ -207,7 +201,7 @@
 \pagestyle{empty}
 \input{sections/cover}
 
-\pagenumbering{roman}
+\pagenumbering{arabic}
 \setcounter{page}{1}
 \pagestyle{thesis-decl}
 \input{sections/originality_statement}
@@ -226,7 +220,6 @@
 \customtableofcontents
 \clearpage
 
-\pagenumbering{arabic}
 \pagestyle{thesis-main}
 \input{sections/chapter1}
 \input{sections/chapter2}
