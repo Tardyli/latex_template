@@ -116,6 +116,11 @@
 \renewcommand{\thefigure}{\arabic{chapter}-\arabic{figure}}
 \renewcommand{\thetable}{\arabic{chapter}-\arabic{table}}
 \renewcommand{\theequation}{\arabic{chapter}-\arabic{equation}}
+\makeatletter
+\renewcommand{\tagform@}[1]{%
+    \maketag@@@{{\tnr\fontsize{10.5pt}{20pt}\selectfont （#1）}}%
+}
+\makeatother
 
 \titleformat{\chapter}
     {\centering\songti\bfseries\fontsize{16pt}{20pt}\selectfont}
@@ -212,6 +217,8 @@
     \markboth{\thesisheadertext}{\thesisheadertext}
 }
 \renewcommand*{\bibfont}{\songti\fontsize{12pt}{20pt}\selectfont}
+\setlength{\bibhang}{2em}
+\setlength{\bibitemsep}{0pt}
 
 \begin{document}
 
