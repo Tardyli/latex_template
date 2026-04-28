@@ -1,25 +1,27 @@
 \chapter{测试与结果分析}
 
 \section{实验环境与证据材料}
-本文实验以 IXI T1 脑部 MRI 数据为主要数据来源。原始数据为 NIfTI 格式体数据，经预处理后转换为 PNG 格式二维切片，并进一步打包为 StyleGAN2 训练所需的数据集。根据本次训练配置文件，训练数据路径为 \texttt{data/processed/mri128.zip}，训练集最大规模为 60815 张切片，图像分辨率为 $128\times128$。
+本文实验以 IXI T1 脑部 MRI 数据为主要数据来源。原始数据为 NIfTI 格式体数据，经预处理后转换为 PNG 格式二维切片，并进一步打包为 StyleGAN2 训练所需的数据集。根据训练配置文件，StyleGAN2 使用的数据集为 \texttt{mri128.zip}，训练集最大规模为 60815 张切片，图像分辨率为 $128\times128$。3DGS 实验使用连续 MRI 切片序列构建三维训练输入，训练集包含 180 张 $256\times256$ 切片，并以 300000 个初始点作为三维高斯优化起点。
 
-为了保证论文实验结论能够追溯到真实项目产物，本文将训练日志、训练配置、模型权重、生成切片、点云文件和三维表达代码作为主要证据材料。相关材料均来自项目目录 \texttt{MRI\_Platform/results} 和 \texttt{MRI\_Platform/src}，其中 StyleGAN2 训练权重、生成图像、三维点云和 3DGS 三维表达模块均已形成可检查文件。
+为了保证论文实验结论能够追溯到真实项目产物，本文将训练日志、训练配置、模型权重、生成切片、点云文件、3DGS checkpoint、渲染图像和指标统计文件作为主要证据材料。相关材料均来自项目结果目录和源码目录，能够覆盖数据处理、二维生成、三维重建和平台测试的主要环节。
 
 \begin{table}[H]
 \centering
 \caption{实验与测试证据材料}
-\begin{tabular}{p{4.2cm}>{\raggedright\arraybackslash}p{6.2cm}p{2.2cm}}
+\begin{tabular}{>{\raggedright\arraybackslash}p{4.1cm}>{\raggedright\arraybackslash}p{6.4cm}p{2.1cm}}
 \toprule
 证据材料 & 项目路径 & 状态 \\
 \midrule
 StyleGAN2 训练配置 & \thesispath{results/training_runs/00000-.../training_options.json} & 已确认 \\
 StyleGAN2 训练日志 & \thesispath{results/training_runs/00000-.../log.txt} & 已确认 \\
-训练样本网格 & \thesispath{results/training_runs/00000-.../reals.png} & 已确认 \\
 可加载模型权重 & \thesispath{results/training_runs/network-snapshot-010000.pkl} & 已确认 \\
-生成切片示例 & \thesispath{results/generated_slices/seed0042.png} & 已确认 \\
-三维点云文件 & \thesispath{results/3d_model_test/init_point_cloud.ply} & 已确认 \\
-点云复核样例 & \thesispath{results/check_3d_model/init_point_cloud.ply} & 已确认 \\
-3DGS 三维表达代码 & \thesispath{src/gaussian_splatting} 与点云初始化脚本 & 已确认 \\
+训练样本网格 & \thesispath{results/training_runs/00000-.../reals.png} & 已确认 \\
+生成切片示例 & \thesispath{results/generated_slices/seed0042.png} 等 & 已确认 \\
+初始点云文件 & \thesispath{results/3d_model_test/init_point_cloud.ply} & 已确认 \\
+3DGS 训练日志 & \thesispath{results/3dgs_runs/mri_180slices_.../train.log} & 已确认 \\
+3DGS 模型权重 & \thesispath{results/3dgs_runs/mri_180slices_.../chkpnt30000.pth} & 已确认 \\
+3DGS 输出点云 & \thesispath{results/3dgs_runs/mri_180slices_.../point_cloud/iteration_30000/point_cloud.ply} & 已确认 \\
+3DGS 渲染结果 & \thesispath{results/3dgs_runs/mri_180slices_.../train/ours_30000/renders} & 已确认 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -57,10 +59,10 @@ ADA 目标值 & 0.6 \\
 \label{fig:stylegan2-reals}
 \end{figure}
 
-训练完成后，项目得到可加载的模型快照 \texttt{network-snapshot-010000.pkl}，文件大小约 283 MB。平台能够读取该权重并生成 MRI 切片，说明模型权重加载、潜变量采样、生成器推理、图像张量转换和 PNG 保存等环节已经连通。本文实验评价以工程链路可用性、生成结果可视化、点云文件可追溯性和平台功能测试为主，能够支撑毕业设计系统实现与展示目标。
+训练完成后，项目得到可加载的模型快照 \texttt{network-snapshot-010000.pkl}。平台能够读取该权重并生成 MRI 切片，说明模型权重加载、潜变量采样、生成器推理、图像张量转换和 PNG 保存等环节已经连通。本文对 StyleGAN2 结果的评价重点放在生成链路可用性、输出可复现性和生成结果对三维重建输入的支撑能力上。
 
 \section{二维切片生成结果分析}
-平台生成的示例切片如图 \ref{fig:generated-slices} 所示。该图来自生成切片结果目录，由本次 StyleGAN2 权重生成。生成结果能够呈现脑部 MRI 切片的基本灰度结构，说明训练权重已经能够被平台推理模块正确调用。
+平台生成的示例切片如图 \ref{fig:generated-slices} 所示。该图来自生成切片结果目录，由训练完成的 StyleGAN2 权重生成。生成结果能够呈现脑部 MRI 切片的基本灰度结构，说明训练权重已经能够被平台推理模块正确调用。
 
 \begin{figure}[H]
 \centering
@@ -81,10 +83,8 @@ ADA 目标值 & 0.6 \\
 
 从系统实现角度看，二维切片生成链路已经具备完整闭环。用户在平台中指定模型权重、生成数量、截断参数和随机种子后，系统自动完成潜变量采样、生成器前向推理、灰度图像转换和结果保存。截断参数 \texttt{truncation\_psi} 可用于控制生成结果的稳定性与多样性，随机种子则保证同一参数组合下结果具有可复现性。该功能不仅用于生成论文展示图，也为连续切片序列和点云初始化提供输入。
 
-医学图像生成质量不能只依赖单张图像的主观观感，还需要从分布一致性、解剖结构合理性和系统可用性等角度分析。本文结合真实切片样本网格、生成切片示例、模型权重加载结果和平台功能测试进行综合评价，重点说明生成链路是否完整、结果是否可复现、输出是否能够服务于三维表达和教学展示。
-
 \section{平台功能测试}
-平台功能测试主要验证数据预处理、模型训练入口、切片生成、连续序列生成、点云初始化和 AI 助手等流程是否能够按照预期运行。测试结果表明，平台主页、参数输入组件和 Gradio 后端服务能够正常访问；生成模块能够调用训练完成的权重生成 PNG 切片；点云初始化模块能够从切片目录生成 PLY 文件。
+平台功能测试主要验证数据预处理、模型训练入口、切片生成、连续序列生成、点云初始化、3DGS 结果展示和 AI 助手等流程是否能够按照预期运行。测试结果表明，平台主页、参数输入组件和 Gradio 后端服务能够正常访问；生成模块能够调用训练完成的权重生成 PNG 切片；点云初始化模块能够从切片目录生成 PLY 文件；3DGS 训练结果能够以日志、渲染图像和点云文件形式归档并用于论文展示。
 
 \begin{table}[H]
 \centering
@@ -98,15 +98,16 @@ ADA 目标值 & 0.6 \\
 切片生成 & 加载 \texttt{.pkl} 权重并生成 PNG 图像 & 已通过，已有生成样例 \\
 连续序列 & 潜空间插值得到连续切片序列 & 已实现，可用于三维展示 \\
 点云初始化 & 将切片序列转换为 PLY 点云 & 已通过，已有 PLY 结果 \\
+3DGS 重建 & 组织切片、点云、相机参数并完成训练输出 & 已通过，已有 checkpoint、点云和渲染结果 \\
 AI 助手 & 参数说明和平台问答 & 已实现，依赖外部 API \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-从测试结果看，平台作为毕业设计系统已经具备完整演示能力。用户可以通过界面理解并操作从数据预处理到二维生成、再到初始三维表示的主要流程。平台首页、预处理入口、生成结果画廊、点云初始化日志和异常输入提示共同构成系统展示材料，能够支撑论文验收和答辩演示。
+从测试结果看，平台作为毕业设计系统已经具备完整演示能力。用户可以通过界面理解并操作从数据预处理到二维生成、再到初始三维表示和 3DGS 重建结果展示的主要流程。平台首页、预处理入口、生成结果画廊、点云初始化日志、3DGS 结果路径和异常输入提示共同构成系统展示材料，能够支撑论文验收和答辩演示。
 
-\section{点云初始化结果与三维表达分析}
-本文三维相关结果主要是由 \texttt{init\_pcd.py} 生成的初始点云文件，输出路径为 \texttt{results/3d\_model\_test/init\_point\_cloud.ply}。该文件大小约 13 MB，PLY 文件头显示包含 477426 个顶点，每个顶点包含三维坐标和 RGB 颜色信息。点云预览如图 \ref{fig:init-point-cloud} 所示。
+\section{点云初始化结果分析}
+点云初始化结果由 \texttt{init\_pcd.py} 生成，输出文件为 \texttt{init\_point\_cloud.ply}。该文件大小约 13 MB，PLY 文件头显示包含 477426 个顶点，每个顶点包含三维坐标和 RGB 颜色信息。点云预览如图 \ref{fig:init-point-cloud} 所示。
 
 \begin{figure}[H]
 \centering
@@ -115,49 +116,72 @@ AI 助手 & 参数说明和平台问答 & 已实现，依赖外部 API \\
 \label{fig:init-point-cloud}
 \end{figure}
 
-该点云结果能够体现二维切片向三维空间组织的基本思路：每张切片对应一个 $z$ 轴位置，非背景像素对应空间点，像素灰度对应颜色强度。因此，点云可以作为 3DGS 三维表达的输入，也可以作为平台 2D/3D 对比展示的三维结果。与单纯二维生成相比，该步骤为三维结构表达提供了工程接口。
+该点云结果能够体现二维切片向三维空间组织的基本思路：每张切片对应一个 $z$ 轴位置，非背景像素对应空间点，像素灰度对应颜色强度。因此，点云可以作为 3DGS 三维重建的输入，也可以作为平台 2D/3D 对比展示的中间结果。与单纯二维生成相比，该步骤为三维结构表达提供了工程接口。
 
-从结果特征看，点云文件能够把切片中的有效像素显式组织到三维坐标系中，使脑部切片的空间分布以可查看的 PLY 文件形式保存。该结果符合本平台“二维生成 + 三维表达 + 可视化交互”的系统定位。医学图像生成平台面向教学和研究展示，生成结果主要作为医学图像生成流程、三维组织方法和平台集成效果的实验验证材料。
-
-\section{3DGS 三维表达流程分析}
-结合项目代码和前期报告内容，3DGS 三维表达流程可按“输入准备、参数初始化、空间表达、结果导出、平台展示”五个步骤组织。输入准备阶段使用连续切片目录和 \texttt{init\_point\_cloud.ply}；参数初始化阶段将点云顶点扩展为三维高斯基元，并初始化位置、颜色、不透明度和尺度；空间表达阶段根据切片索引、像素位置和层间距建立三维坐标关系；结果导出阶段保存点云文件、三维表达结果和可视化图；平台展示阶段将三维结果与二维切片序列共同呈现。
+\section{3DGS 训练配置与重建结果}
+3DGS 实验使用 180 张连续 MRI 切片作为监督图像，并以 300000 个点构建初始 PLY 点云。训练结果保存在 3DGS 主训练目录中。训练配置文件显示，模型采用三阶球谐函数表示颜色，输入图像目录为 \texttt{images}，数据设备为 CUDA，训练输出目录保存相机参数、checkpoint、训练日志、渲染结果和点云文件。
 
 \begin{table}[H]
 \centering
-\caption{3DGS 三维表达实验结果统计}
-\begin{tabular}{>{\raggedright\arraybackslash}p{3.4cm}>{\raggedright\arraybackslash}p{4.6cm}>{\raggedright\arraybackslash}p{4.8cm}}
+\caption{3DGS 训练主要参数与输出}
+\begin{tabular}{>{\raggedright\arraybackslash}p{4.1cm}>{\raggedright\arraybackslash}p{8.2cm}}
 \toprule
-统计项 & 实验结果 & 说明 \\
+参数项 & 参数值或结果 \\
 \midrule
-输入数据 & 连续 MRI 切片序列 & 由平台生成模块组织并输入三维表达流程 \\
-三维文件 & \thesispath{results/3d_model_test/init_point_cloud.ply} & 以 ASCII PLY 格式保存，可被常见点云工具读取 \\
-顶点数量 & 477426 个 & 由 PLY 文件头部信息确认 \\
-文件大小 & 约 13 MB & 保存三维坐标与灰度颜色信息 \\
-复核样例 & 31980 个顶点 & \thesispath{results/check_3d_model/init_point_cloud.ply} 用于验证脚本输出稳定性 \\
-顶点属性 & $x,y,z$ 坐标与 RGB 颜色 & 支撑空间结构和灰度强度的联合表达 \\
+训练切片数量 & 180 张 \\
+训练图像分辨率 & $256\times256$ \\
+初始点云规模 & 300000 点 \\
+相机参数数量 & 180 个相机条目 \\
+颜色表示 & 三阶球谐函数，\texttt{sh\_degree=3} \\
+训练迭代次数 & 30000 轮 \\
+最终 checkpoint & \texttt{chkpnt30000.pth} \\
+最终点云 & 第 30000 轮输出 PLY 点云 \\
+最终高斯点数量 & 572073 个 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-针对三维表达结果，本文从可视化质量、空间连续性、文件可追溯性、模型规模和交互效果五个维度进行评价。图 \ref{fig:init-point-cloud} 所示的点云结果展示了连续 MRI 切片在三维空间中的组织效果，能够说明系统已经完成从二维生成结果到三维表达文件的转换。该结果既保留了切片灰度信息，又通过 $z$ 轴层间映射建立了空间结构关系，能够满足平台展示和毕业设计系统验收需求。
+训练过程中，系统在第 1000、3000、5000、7000、15000 和 30000 轮记录训练集重建指标，并保存对应高斯点云。表 \ref{tab:3dgs-metrics} 给出了训练日志中记录的主要指标。可以看到，随着训练迭代增加，L1 误差整体下降，PSNR 整体提升，说明三维高斯参数在切片监督下逐步逼近目标 MRI 切片分布。
 
 \begin{table}[H]
 \centering
-\caption{3DGS 三维表达结果评价}
-\begin{tabular}{>{\raggedright\arraybackslash}p{3.2cm}>{\raggedright\arraybackslash}p{5.2cm}>{\raggedright\arraybackslash}p{4.6cm}}
+\caption{3DGS 训练过程指标}
+\label{tab:3dgs-metrics}
+\begin{tabular}{cccc}
 \toprule
-评价维度 & 评价内容 & 结果分析 \\
+迭代轮数 & L1 误差 & PSNR/dB & 说明 \\
 \midrule
-视觉质量 & 点云预览是否保留脑部轮廓、灰度层次和主要结构 & 结果能够呈现 MRI 切片堆叠后的空间分布 \\
-空间连续性 & 相邻切片在 $z$ 轴方向是否形成连续组织关系 & 切片索引与层间距映射关系清晰，便于三维观察 \\
-文件可追溯性 & 三维结果是否能够对应到输入切片、输出目录和代码脚本 & PLY 文件、生成脚本和平台路径均可定位 \\
-模型规模 & 顶点数量、文件大小和读取成本是否适合平台演示 & 477426 个顶点和约 13 MB 文件规模适合本地展示 \\
-交互效果 & 平台加载、结果反馈和 2D/3D 对比流程是否稳定 & 能够支撑教学演示和论文结果展示 \\
+1000 & 0.1083 & 14.5942 & 初始优化阶段 \\
+3000 & 0.0913 & 15.7418 & 结构逐步收敛 \\
+5000 & 0.0881 & 15.8296 & 灰度细节增强 \\
+7000 & 0.0873 & 15.8978 & 中期稳定优化 \\
+15000 & 0.0806 & 16.4241 & 重建质量继续提升 \\
+30000 & 0.0709 & 17.5894 & 最终训练结果 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\section{存在问题与局限性分析}
-本文系统仍有以下提升空间。第一，生成结果评价体系可以更加丰富。本文已经完成 StyleGAN2 训练和切片生成，并围绕工程链路和可视化结果开展测试，若引入更多医学专家评价或下游任务评价，可进一步增强结果解释力。第二，三维表达主要基于点云初始化和规则切片映射，对复杂三维连续结构的表达能力仍有提升空间。第三，StyleGAN2 生成的是二维切片，连续序列主要依赖潜空间插值，切片间三维一致性可以通过更多结构约束继续增强。第四，平台部分功能依赖本地路径和外部 API，跨环境部署能力仍可通过配置文件和容器化方式进一步提升。
+根据 180 对第 30000 轮渲染切片与参考切片计算，平均 PSNR 为 17.4738 dB，平均归一化 L1 为 0.0695，平均全局 SSIM 为 0.8935。这里的 SSIM 采用整幅灰度图全局统计方式计算，用于反映平台实验中的重建一致性，而不是医学诊断性能指标。训练指标变化如图 \ref{fig:3dgs-metrics-30000} 所示。
 
-针对上述问题，系统改进方向主要包括三维表达增强和实验评价丰富。一方面，可以在点云结果基础上引入更细致的三维高斯参数约束，提升渲染展示效果；另一方面，可以构建更规范的实验评价表和结果展示图，使论文实验章节不仅说明系统能够运行，还能说明生成结果的质量、稳定性和局限。
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/3dgs_metrics_30000.png}
+\caption{3DGS 训练过程 L1 与 PSNR 指标变化}
+\label{fig:3dgs-metrics-30000}
+\end{figure}
+
+第 30000 轮渲染切片与参考切片对比如图 \ref{fig:3dgs-comparison-30000} 所示。图中选取序列前部、中部和后部的切片进行展示，可以观察到渲染结果在脑部轮廓、主体灰度区域和切片位置变化方面与参考切片保持一致。部分细节区域仍存在平滑化现象，这与 MRI 切片纹理细节、单序列输入约束以及当前训练规模有关。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{figures/3dgs_slice_comparison_30000.png}
+\caption{3DGS 第 30000 轮渲染切片与参考切片对比}
+\label{fig:3dgs-comparison-30000}
+\end{figure}
+
+综合训练日志、checkpoint、点云文件和渲染结果可知，3DGS 模块已经完成从规则切片序列到三维高斯表达的训练闭环。输入点云从 300000 点优化为 572073 个高斯点，说明训练过程在初始空间结构基础上进一步调整和扩展了三维表达能力。该结果能够支撑平台进行 MRI 图像三维重建展示，也为后续更高质量的医学三维可视化提供基础。
+
+\section{综合评价与局限性分析}
+本文系统已经完成从 MRI 数据预处理、StyleGAN2 二维生成、连续切片组织、点云初始化到 3DGS 三维重建的主要流程。StyleGAN2 部分形成了可加载权重和生成切片；3DGS 部分形成了训练日志、checkpoint、渲染图像和训练后点云；平台部分完成了多功能交互界面和结果归档。整体来看，系统满足毕业设计对算法实现、工程集成、实验验证和可视化展示的要求。
+
+系统仍有进一步提升空间。第一，StyleGAN2 生成结果仍主要通过可视化和工程链路验证，若加入更大规模生成样本统计、专家评价或下游医学任务评价，可进一步增强医学合理性分析。第二，3DGS 训练基于规则切片相机和单序列灰度图像，虽然能够形成稳定的三维表达，但对细粒度组织边界和复杂解剖结构的表达仍有提升空间。第三，平台部分功能依赖本地路径、GPU 环境和外部 API，跨环境部署能力可通过配置文件、环境变量和容器化方式继续增强。上述局限不影响本文系统完成主要设计目标，但为后续扩展研究提供了明确方向。
