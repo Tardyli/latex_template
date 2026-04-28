@@ -5,6 +5,7 @@
 \IfFontExistsTF{Times New Roman}{%
     \setmainfont{Times New Roman}
     \newfontfamily\tnr{Times New Roman}
+    \setmonofont{Times New Roman}
 }{%
     \PackageError{cuit-thesis}{Required font Times New Roman not found}{Install Times New Roman, or upload it to the Overleaf project and update the font configuration.}
 }
@@ -70,6 +71,7 @@
     citecolor=black,
     urlcolor=black
 }
+\urlstyle{same}
 
 \setlength{\parindent}{2em}
 \setlength{\parskip}{0pt}
@@ -88,8 +90,9 @@
     {\tnr\fontsize{9pt}{11pt}\selectfont\thepage}%
 }
 \newcommand{\thesispath}[1]{%
-    {\ttfamily\small\nolinkurl{#1}}%
+    {\tnr\small\nolinkurl{#1}}%
 }
+\renewcommand{\texttt}[1]{{\tnr #1}}
 
 \AtBeginDocument{\thesisbodyfont}
 \linespread{1.0}\selectfont
