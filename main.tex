@@ -94,7 +94,7 @@
 \AtBeginDocument{\thesisbodyfont}
 \linespread{1.0}\selectfont
 
-\DeclareCaptionFont{thesiscaptionfont}{\songti\fontsize{10.5pt}{15pt}\selectfont}
+\DeclareCaptionFont{thesiscaptionfont}{\songti\fontsize{10.5pt}{20pt}\selectfont}
 \captionsetup{
     font=thesiscaptionfont,
     labelfont=normalfont,
@@ -174,7 +174,7 @@
 \fancypagestyle{thesis-decl}{
     \fancyhf{}
     \fancyhead[C]{{\songti\fontsize{9pt}{11pt}\selectfont \thesisheadertext}}
-    \fancyfoot[C]{\thesispageline}
+    \fancyfoot[C]{\thesisfrontpage}
     \renewcommand{\headrulewidth}{0.4pt}
     \renewcommand{\footrulewidth}{0pt}
 }
@@ -182,7 +182,7 @@
 \fancypagestyle{thesis-front}{
     \fancyhf{}
     \fancyhead[C]{{\songti\fontsize{9pt}{11pt}\selectfont \thesisheadertext}}
-    \fancyfoot[C]{\thesispageline}
+    \fancyfoot[C]{\thesisfrontpage}
     \renewcommand{\headrulewidth}{0.4pt}
     \renewcommand{\footrulewidth}{0pt}
 }
@@ -208,14 +208,14 @@
     \addcontentsline{toc}{chapter}{#1}
     \markboth{\thesisheadertext}{\thesisheadertext}
 }
-\renewcommand*{\bibfont}{\songti\fontsize{10.5pt}{20pt}\selectfont}
+\renewcommand*{\bibfont}{\songti\fontsize{12pt}{20pt}\selectfont}
 
 \begin{document}
 
 \pagestyle{empty}
 \input{sections/cover}
 
-\pagenumbering{arabic}
+\pagenumbering{roman}
 \setcounter{page}{1}
 \pagestyle{thesis-decl}
 \input{sections/originality_statement}
@@ -234,6 +234,7 @@
 \customtableofcontents
 \clearpage
 
+\pagenumbering{arabic}
 \pagestyle{thesis-main}
 \input{sections/chapter1}
 \input{sections/chapter2}
