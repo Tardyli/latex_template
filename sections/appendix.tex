@@ -4,8 +4,8 @@
 \markboth{成都信息工程大学学士学位论文}{成都信息工程大学学士学位论文}
 
 \section*{附录 A\quad 项目主要文件与实验产物}
-本文系统的主要工程文件和实验产物均保存在项目目录 \thesispath{MRI_Platform} 中。平台入口文件为 \thesispath{src/app.py}，负责 Gradio 界面构建、模型权重查找、切片生成、连续序列生成和点云初始化等功能调度。MRI 数据预处理脚本为 \thesispath{preprocess_mri.py}，用于读取 NIfTI 体数据并生成 PNG 切片。点云初始化脚本为 \thesispath{init_pcd.py}，用于将连续切片序列转换为 PLY 点云文件。
+本文涉及的工程代码与实验结果主要保存在项目目录 \thesispath{MRI_Platform} 中。平台入口文件为 \thesispath{src/app.py}，用于构建 Gradio 交互界面，并调度模型权重查找、切片生成、连续序列构建和点云初始化等功能。MRI 数据预处理脚本为 \thesispath{preprocess_mri.py}，负责读取 NIfTI 体数据并导出 PNG 切片。点云初始化脚本为 \thesispath{init_pcd.py}，负责把连续切片序列转换为 PLY 点云文件。
 
-StyleGAN2 相关训练配置和日志保存在主训练运行目录中，其中训练配置文件记录训练数据、分辨率、batch size、学习率和 ADA 参数，日志文件记录训练与运行输出信息。可加载模型权重、训练样本网格和生成切片样例分别保存在训练结果目录与生成结果目录中，可用于复核第 6 章的实验分析。
+StyleGAN2 相关训练配置和日志保存在主训练运行目录中。训练配置文件记录训练数据、分辨率、batch size、学习率和 ADA 参数，日志文件保存训练过程输出。可加载模型权重、训练样本网格和生成切片样例分别位于训练结果目录与生成结果目录，可用于复核第 6 章中的二维生成实验。
 
-三维重建相关结果包括初始点云文件、3DGS 训练目录和前端展示结果。初始点云文件 \thesispath{init_point_cloud.ply} 包含 477426 个顶点，复核样例包含 31980 个顶点。3DGS 主训练目录为 \thesispath{results/3dgs_runs/mri_180slices_300k_winterp_30000_20260428_035250}，其中包含 180 个相机参数、30000 轮训练日志、\thesispath{chkpnt30000.pth}、第 30000 轮输出点云以及 180 对渲染切片和参考切片。论文使用的 3DGS 指标曲线和切片对比图保存在 \thesispath{figures/3dgs_metrics_30000.png} 与 \thesispath{figures/3dgs_slice_comparison_30000.png} 中。上述文件共同构成本文第 5 章和第 6 章中系统实现、功能测试与结果分析的主要证据材料。
+三维重建结果包括初始点云文件、3DGS 训练目录和平台展示材料。初始点云文件 \thesispath{init_point_cloud.ply} 包含 477426 个顶点，复核样例包含 31980 个顶点。3DGS 主训练结果位于 \thesispath{results/3dgs_runs} 下的 \texttt{mri\_180slices\_...} 目录，其中包含 180 个相机参数、30000 轮训练日志、\thesispath{chkpnt30000.pth}、第 30000 轮输出点云以及 180 对渲染切片和参考切片。论文使用的 3DGS 指标曲线和切片对比图保存在 \thesispath{figures/3dgs_metrics_30000.png} 与 \thesispath{figures/3dgs_slice_comparison_30000.png} 中。上述材料共同支撑第 5 章系统实现和第 6 章测试分析中的主要结论。
