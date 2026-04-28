@@ -67,14 +67,14 @@
 \setlength{\parskip}{0pt}
 \setlength{\headheight}{14.5pt}
 \setcounter{secnumdepth}{3}
-\setcounter{tocdepth}{2}
+\setcounter{tocdepth}{3}
 
 \newcommand{\thesisheadertext}{成都信息工程大学学士学位论文}
 \newcommand{\thesisbodyfont}{\songti\fontsize{12pt}{20pt}\selectfont}
 \newcommand{\thesiswuhao}{\songti\fontsize{10.5pt}{15pt}\selectfont}
 \newcommand{\thesissmallfive}{\songti\fontsize{9pt}{11pt}\selectfont}
 \newcommand{\thesispageline}{%
-    {\thesissmallfive 第{\tnr\thepage}页共{\tnr\pageref{LastPage}}页}%
+    {\thesissmallfive 第{\tnr\thepage}页 共{\tnr\pageref{LastPage}}页}%
 }
 \newcommand{\thesisfrontpage}{%
     {\tnr\fontsize{9pt}{11pt}\selectfont\thepage}%
@@ -108,7 +108,7 @@
 
 \titleformat{\chapter}
     {\centering\songti\bfseries\fontsize{16pt}{20pt}\selectfont}
-    {\thechapter}
+    {第\zhnumber{\thechapter}章}
     {1em}
     {}
 \titleformat{\section}
