@@ -31,13 +31,17 @@
         \PackageError{cuit-thesis}{Required font SimHei not found}{Upload fonts/simhei.ttf to the Overleaf project, or compile on a system with SimHei installed.}
     }
 }
-\IfFileExists{fonts/simfang.ttf}{%
-    \setCJKfamilyfont{zhfs}[Path=fonts/,AutoFakeBold=2.5]{simfang.ttf}
+\IfFontExistsTF{FangSong_GB2312}{%
+    \setCJKfamilyfont{zhfs}[AutoFakeBold=2.5]{FangSong_GB2312}
 }{%
-    \IfFontExistsTF{FangSong}{%
-        \setCJKfamilyfont{zhfs}[AutoFakeBold=2.5]{FangSong}
+    \IfFileExists{fonts/simfang.ttf}{%
+        \setCJKfamilyfont{zhfs}[Path=fonts/,AutoFakeBold=2.5]{simfang.ttf}
     }{%
-        \PackageError{cuit-thesis}{Required font FangSong not found}{Upload fonts/simfang.ttf to the Overleaf project, or compile on a system with FangSong installed.}
+        \IfFontExistsTF{FangSong}{%
+            \setCJKfamilyfont{zhfs}[AutoFakeBold=2.5]{FangSong}
+        }{%
+            \PackageError{cuit-thesis}{Required font FangSong_GB2312, simfang.ttf or FangSong not found}{Upload fonts/simfang.ttf to the Overleaf project, or compile on a system with FangSong_GB2312/FangSong installed.}
+        }
     }
 }
 \newcommand{\songti}{\CJKfamily{zhsong}}
