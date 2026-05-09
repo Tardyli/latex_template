@@ -77,7 +77,7 @@
 \setlength{\parskip}{0pt}
 \setlength{\headheight}{14.5pt}
 \setcounter{secnumdepth}{3}
-\setcounter{tocdepth}{3}
+\setcounter{tocdepth}{2}
 
 \newcommand{\thesisheadertext}{成都信息工程大学学士学位论文}
 \newcommand{\thesisbodyfont}{\songti\fontsize{12pt}{20pt}\selectfont}
@@ -98,10 +98,12 @@
 \linespread{1.0}\selectfont
 
 \DeclareCaptionFont{thesiscaptionfont}{\songti\fontsize{10.5pt}{20pt}\selectfont}
+\DeclareCaptionLabelFormat{thesiscaptionlabel}{#1#2}
 \captionsetup{
     font=thesiscaptionfont,
     labelfont=normalfont,
     textfont=normalfont,
+    labelformat=thesiscaptionlabel,
     justification=centering,
     singlelinecheck=false
 }
@@ -138,7 +140,7 @@
     {1em}
     {}
 \titleformat{\subsubsection}
-    {\songti\fontsize{12pt}{20pt}\selectfont}
+    {\songti\bfseries\fontsize{12pt}{20pt}\selectfont}
     {\thesubsubsection}
     {1em}
     {}
