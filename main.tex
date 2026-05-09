@@ -156,16 +156,21 @@
 \titlespacing*{\subsubsection}{0pt}{6pt}{6pt}
 
 \renewcommand{\contentsname}{目\quad 录}
+\newcommand{\thesistocfont}{\songti\fontsize{12pt}{20pt}\selectfont}
 \renewcommand{\cfttoctitlefont}{\hfill\songti\bfseries\fontsize{16pt}{20pt}\selectfont}
 \renewcommand{\cftaftertoctitle}{\hfill}
-\renewcommand{\cftchapfont}{\songti\fontsize{12pt}{20pt}\selectfont}
-\renewcommand{\cftsecfont}{\songti\fontsize{12pt}{20pt}\selectfont}
-\renewcommand{\cftsubsecfont}{\songti\fontsize{12pt}{20pt}\selectfont}
+\setlength{\cftbeforetoctitleskip}{10pt}
+\setlength{\cftaftertoctitleskip}{10pt}
+\renewcommand{\cftchapfont}{\thesistocfont}
+\renewcommand{\cftsecfont}{\thesistocfont}
+\renewcommand{\cftsubsecfont}{\thesistocfont}
 \renewcommand{\cftchappagefont}{\tnr\fontsize{12pt}{20pt}\selectfont}
 \renewcommand{\cftsecpagefont}{\tnr\fontsize{12pt}{20pt}\selectfont}
 \renewcommand{\cftsubsecpagefont}{\tnr\fontsize{12pt}{20pt}\selectfont}
 \renewcommand{\cftdotsep}{1}
 \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
 \renewcommand{\cftchappresnum}{}
 \renewcommand{\cftchapaftersnum}{\hspace{0.5em}}
 \cftsetindents{chapter}{0em}{3.8em}
@@ -177,12 +182,15 @@
 
 \makeatletter
 \newcommand{\customtableofcontents}{
+    \begingroup
+    \setlength{\parskip}{0pt}
     \chapter*{\contentsname}
     \thispagestyle{thesis-front}
     \markboth{\thesisheadertext}{\thesisheadertext}
     \vspace{0pt}
-    \noindent\hfill{\songti\fontsize{12pt}{20pt}\selectfont 论文总页数：{\tnr\pageref{LastPage}}页}\par
-    \@starttoc{toc}
+    {\thesistocfont\noindent\hfill 论文总页数：{\tnr\pageref{LastPage}}页\par}
+    {\thesistocfont\justifying\@starttoc{toc}}
+    \endgroup
 }
 \makeatother
 
