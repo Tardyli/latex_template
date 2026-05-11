@@ -31,16 +31,16 @@
         \PackageError{cuit-thesis}{Required font SimHei not found}{Upload fonts/simhei.ttf to the Overleaf project, or compile on a system with SimHei installed.}
     }
 }
-\IfFontExistsTF{FangSong_GB2312}{%
-    \setCJKfamilyfont{zhfs}[AutoFakeBold=2.5]{FangSong_GB2312}
+\IfFileExists{fonts/simfang.ttf}{%
+    \setCJKfamilyfont{zhfs}[Path=fonts/,AutoFakeBold=2.5]{simfang.ttf}
 }{%
-    \IfFileExists{fonts/simfang.ttf}{%
-        \setCJKfamilyfont{zhfs}[Path=fonts/,AutoFakeBold=2.5]{simfang.ttf}
+    \IfFontExistsTF{FangSong_GB2312}{%
+        \setCJKfamilyfont{zhfs}[AutoFakeBold=2.5]{FangSong_GB2312}
     }{%
         \IfFontExistsTF{FangSong}{%
             \setCJKfamilyfont{zhfs}[AutoFakeBold=2.5]{FangSong}
         }{%
-            \PackageError{cuit-thesis}{Required font FangSong_GB2312, simfang.ttf or FangSong not found}{Upload fonts/simfang.ttf to the Overleaf project, or compile on a system with FangSong_GB2312/FangSong installed.}
+            \PackageError{cuit-thesis}{Required font simfang.ttf, FangSong_GB2312 or FangSong not found}{Upload fonts/simfang.ttf to the Overleaf project, or compile on a system with FangSong_GB2312/FangSong installed.}
         }
     }
 }
@@ -157,6 +157,8 @@
 
 \renewcommand{\contentsname}{目\quad 录}
 \newcommand{\thesistocfont}{\songti\fontsize{12pt}{20pt}\selectfont}
+\newcommand{\thesistoctitlefont}{\songti\bfseries\fontsize{16pt}{20pt}\selectfont}
+\newcommand{\thesistocpagefont}{\tnr\fontsize{12pt}{20pt}\selectfont}
 \renewcommand{\cfttoctitlefont}{\hfill\songti\bfseries\fontsize{16pt}{20pt}\selectfont}
 \renewcommand{\cftaftertoctitle}{\hfill}
 \setlength{\cftbeforetoctitleskip}{10pt}
@@ -164,18 +166,18 @@
 \renewcommand{\cftchapfont}{\thesistocfont}
 \renewcommand{\cftsecfont}{\thesistocfont}
 \renewcommand{\cftsubsecfont}{\thesistocfont}
-\renewcommand{\cftchappagefont}{\tnr\fontsize{12pt}{20pt}\selectfont}
-\renewcommand{\cftsecpagefont}{\tnr\fontsize{12pt}{20pt}\selectfont}
-\renewcommand{\cftsubsecpagefont}{\tnr\fontsize{12pt}{20pt}\selectfont}
+\renewcommand{\cftchappagefont}{\thesistocpagefont}
+\renewcommand{\cftsecpagefont}{\thesistocpagefont}
+\renewcommand{\cftsubsecpagefont}{\thesistocpagefont}
 \renewcommand{\cftdotsep}{1}
 \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 \renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
 \renewcommand{\cftchappresnum}{}
-\renewcommand{\cftchapaftersnum}{\hspace{0.5em}}
+\renewcommand{\cftchapaftersnum}{}
 \cftsetindents{chapter}{0em}{3.8em}
-\cftsetindents{section}{2em}{3.2em}
-\cftsetindents{subsection}{4em}{4.2em}
+\cftsetindents{section}{2em}{3.4em}
+\cftsetindents{subsection}{4em}{4.6em}
 \setlength{\cftbeforechapskip}{0pt}
 \setlength{\cftbeforesecskip}{0pt}
 \setlength{\cftbeforesubsecskip}{0pt}
@@ -183,12 +185,14 @@
 \makeatletter
 \newcommand{\customtableofcontents}{
     \begingroup
+    \setlength{\parindent}{0pt}
     \setlength{\parskip}{0pt}
-    \chapter*{\contentsname}
     \thispagestyle{thesis-front}
     \markboth{\thesisheadertext}{\thesisheadertext}
-    \vspace{0pt}
-    {\thesistocfont\noindent\hfill 论文总页数：{\tnr\pageref{LastPage}}页\par}
+    \vspace*{10pt}
+    {\centering\thesistoctitlefont\contentsname\par}
+    \vspace{10pt}
+    {\thesistocfont\noindent\hfill 论文总页数：{\thesistocpagefont\pageref{LastPage}}页\par}
     {\thesistocfont\justifying\@starttoc{toc}}
     \endgroup
 }
