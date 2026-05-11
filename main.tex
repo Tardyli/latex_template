@@ -69,6 +69,7 @@
 \usepackage[backend=biber,style=gb7714-2015,sorting=none,maxbibnames=3,minbibnames=3,maxcitenames=3,mincitenames=3]{biblatex}
 
 \addbibresource{bib/references.bib}
+\DefineBibliographyStrings{english}{andothers = {等}}
 \let\inlinecite\cite
 \let\cite\supercite
 
@@ -294,7 +295,7 @@
     \addcontentsline{toc}{chapter}{#1}
     \markboth{\thesisheadertext}{\thesisheadertext}
 }
-\renewcommand*{\bibfont}{\songti\fontsize{12pt}{20pt}\selectfont}
+\renewcommand*{\bibfont}{\songti\fontsize{12pt}{20pt}\selectfont\sloppy\setlength{\emergencystretch}{3em}\hbadness=10001}
 \setlength{\bibhang}{2em}
 \setlength{\bibitemsep}{0pt}
 
