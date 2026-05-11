@@ -105,9 +105,10 @@
 
 \AtBeginDocument{\thesisbodyfont}
 \linespread{1.0}\selectfont
-\renewcommand{\footnotelayout}{\thesisfootnotefont}
+\renewcommand{\footnotelayout}{\thesisfootnotefont\justifying\setlength{\parindent}{0pt}}
 \setlength{\footnotemargin}{2em}
 \setlength{\footnotesep}{0pt}
+\setlength{\skip\footins}{10pt}
 
 \DeclareCaptionFont{thesiscaptionfont}{\songti\fontsize{10.5pt}{20pt}\selectfont}
 \DeclareCaptionLabelFormat{thesiscaptionlabel}{#1#2\hspace{1em}}
