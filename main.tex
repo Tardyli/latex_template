@@ -59,12 +59,13 @@
 \usepackage{float}
 \usepackage{indentfirst}
 \usepackage{ragged2e}
+\usepackage[hang]{footmisc}
 \usepackage{hyperref}
 \usepackage{fancyhdr}
 \usepackage{titlesec}
 \usepackage{tocloft}
 \usepackage{lastpage}
-\usepackage[backend=biber,style=gb7714-2015]{biblatex}
+\usepackage[backend=biber,style=gb7714-2015,sorting=none]{biblatex}
 
 \addbibresource{bib/references.bib}
 \let\inlinecite\cite
@@ -88,6 +89,7 @@
 \newcommand{\thesisbodyfont}{\songti\fontsize{12pt}{20pt}\selectfont}
 \newcommand{\thesiswuhao}{\songti\fontsize{10.5pt}{15pt}\selectfont}
 \newcommand{\thesissmallfive}{\songti\fontsize{9pt}{11pt}\selectfont}
+\newcommand{\thesisfootnotefont}{\songti\fontsize{12pt}{20pt}\selectfont}
 \newcommand{\thesispageline}{%
     {\thesissmallfive 第{\tnr\thepage}页\quad 共{\tnr\pageref{LastPage}}页}%
 }
@@ -101,6 +103,9 @@
 
 \AtBeginDocument{\thesisbodyfont}
 \linespread{1.0}\selectfont
+\renewcommand{\footnotelayout}{\thesisfootnotefont}
+\setlength{\footnotemargin}{2em}
+\setlength{\footnotesep}{0pt}
 
 \DeclareCaptionFont{thesiscaptionfont}{\songti\fontsize{10.5pt}{20pt}\selectfont}
 \DeclareCaptionLabelFormat{thesiscaptionlabel}{#1#2}
@@ -135,17 +140,17 @@
     {1em}
     {}
 \titleformat{\section}
-    {\songti\bfseries\fontsize{14pt}{20pt}\selectfont}
+    {\raggedright\songti\bfseries\fontsize{14pt}{20pt}\selectfont}
     {\thesection}
     {1em}
     {}
 \titleformat{\subsection}
-    {\songti\bfseries\fontsize{12pt}{20pt}\selectfont}
+    {\raggedright\songti\bfseries\fontsize{12pt}{20pt}\selectfont}
     {\thesubsection}
     {1em}
     {}
 \titleformat{\subsubsection}
-    {\songti\bfseries\fontsize{12pt}{20pt}\selectfont}
+    {\raggedright\songti\bfseries\fontsize{12pt}{20pt}\selectfont}
     {\thesubsubsection}
     {1em}
     {}
