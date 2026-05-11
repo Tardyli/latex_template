@@ -108,19 +108,32 @@
 \setlength{\footnotesep}{0pt}
 
 \DeclareCaptionFont{thesiscaptionfont}{\songti\fontsize{10.5pt}{20pt}\selectfont}
-\DeclareCaptionLabelFormat{thesiscaptionlabel}{#1#2}
+\DeclareCaptionLabelFormat{thesiscaptionlabel}{#1#2\hspace{1em}}
 \captionsetup{
     font=thesiscaptionfont,
     labelfont=normalfont,
     textfont=normalfont,
     labelformat=thesiscaptionlabel,
+    labelsep=none,
     justification=centering,
     singlelinecheck=false
 }
 \captionsetup*[figure]{position=bottom,skip=6pt}
 \captionsetup*[table]{position=top,skip=6pt}
+\captionsetup*[subfigure]{
+    font=thesiscaptionfont,
+    labelfont=normalfont,
+    textfont=normalfont,
+    labelsep=space,
+    justification=centering,
+    singlelinecheck=false,
+    skip=6pt
+}
 \renewcommand{\figurename}{图}
 \renewcommand{\tablename}{表}
+\newcommand{\thesiscontinuedtablehead}[1]{%
+    \multicolumn{#1}{r}{\thesiscaptionfont 续表\thetable}%
+}
 
 \numberwithin{figure}{chapter}
 \numberwithin{table}{chapter}
