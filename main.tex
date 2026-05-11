@@ -57,6 +57,7 @@
 \usepackage[labelsep=space]{caption}
 \usepackage{subcaption}
 \usepackage{float}
+\usepackage{etoolbox}
 \usepackage{indentfirst}
 \usepackage{ragged2e}
 \usepackage[hang]{footmisc}
@@ -90,6 +91,7 @@
 \newcommand{\thesiswuhao}{\songti\fontsize{10.5pt}{15pt}\selectfont}
 \newcommand{\thesissmallfive}{\songti\fontsize{9pt}{11pt}\selectfont}
 \newcommand{\thesisfootnotefont}{\songti\fontsize{12pt}{20pt}\selectfont}
+\newcommand{\thesisequationfont}{\tnr\fontsize{10.5pt}{20pt}\selectfont}
 \newcommand{\thesispageline}{%
     {\thesissmallfive 第{\tnr\thepage}页\quad 共{\tnr\pageref{LastPage}}页}%
 }
@@ -141,9 +143,15 @@
 \renewcommand{\thefigure}{\arabic{chapter}-\arabic{figure}}
 \renewcommand{\thetable}{\arabic{chapter}-\arabic{table}}
 \renewcommand{\theequation}{\arabic{chapter}-\arabic{equation}}
+\AtBeginEnvironment{equation}{\thesisequationfont}
+\AtBeginEnvironment{align}{\thesisequationfont}
+\AtBeginEnvironment{gather}{\thesisequationfont}
+\AtBeginEnvironment{multline}{\thesisequationfont}
+\AtBeginEnvironment{alignat}{\thesisequationfont}
 \makeatletter
+\DeclareSymbolFont{operators}{TU}{\rmdefault}{m}{n}
 \renewcommand{\tagform@}[1]{%
-    \maketag@@@{{\tnr\fontsize{10.5pt}{20pt}\selectfont （#1）}}%
+    \maketag@@@{{\thesisequationfont (#1)}}%
 }
 \makeatother
 
