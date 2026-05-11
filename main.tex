@@ -125,6 +125,11 @@
     {\thesisdeclbodyfont\noindent\hspace*{2em}#1\hfill 年\hspace{1.1cm}月\hspace{1.1cm}日\par}
     \vspace{10pt}
 }
+\newcommand{\thesisdeclseparator}{%
+    \par\vspace{0.2em}
+    \noindent\hbox to \textwidth{\leaders\hbox to 0.75em{\hss.\hss}\hfill}
+    \par\vspace{0.55em}
+}
 \newcommand{\thesisdeclnote}[1]{%
     {\thesisfangsongwuhao\noindent\begin{minipage}{\dimexpr\textwidth-0.25cm\relax}#1\end{minipage}\par}
 }
