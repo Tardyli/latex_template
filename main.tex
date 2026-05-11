@@ -89,9 +89,12 @@
 \newcommand{\thesisheadertext}{成都信息工程大学学士学位论文}
 \newcommand{\thesisbodyfont}{\songti\fontsize{12pt}{20pt}\selectfont}
 \newcommand{\thesiswuhao}{\songti\fontsize{10.5pt}{15pt}\selectfont}
+\newcommand{\thesisfangsongwuhao}{\fangsong\fontsize{10.5pt}{24pt}\selectfont}
 \newcommand{\thesissmallfive}{\songti\fontsize{9pt}{11pt}\selectfont}
 \newcommand{\thesisfootnotefont}{\songti\fontsize{12pt}{20pt}\selectfont}
 \newcommand{\thesisequationfont}{\tnr\fontsize{10.5pt}{20pt}\selectfont}
+\newcommand{\thesisdecltitlefont}{\songti\bfseries\fontsize{16pt}{24pt}\selectfont}
+\newcommand{\thesisdeclbodyfont}{\songti\fontsize{12pt}{20pt}\selectfont}
 \newcommand{\thesispageline}{%
     {\thesissmallfive 第{\tnr\thepage}页\quad 共{\tnr\pageref{LastPage}}页}%
 }
@@ -100,6 +103,30 @@
 }
 \newcommand{\thesispath}[1]{%
     {\tnr\fontsize{12pt}{20pt}\selectfont\nolinkurl{#1}}%
+}
+\newcommand{\thesisdecltitle}[2]{%
+    \begin{center}
+    \hspace*{-0.85em}\begin{minipage}{\dimexpr\textwidth-0.95em\relax}
+    \centering{\thesisdecltitlefont #1\par #2\par}
+    \end{minipage}
+    \end{center}
+}
+\newenvironment{thesisdeclbody}{%
+    \begingroup
+    \thesisdeclbodyfont
+    \justifying
+    \setlength{\parindent}{2em}
+    \setlength{\parskip}{0pt}
+}{%
+    \par\endgroup
+}
+\newcommand{\thesisdeclsignline}[1]{%
+    \par\vspace{10pt}
+    {\thesisdeclbodyfont\noindent\hspace*{2em}#1\hfill 年\hspace{1.1cm}月\hspace{1.1cm}日\par}
+    \vspace{10pt}
+}
+\newcommand{\thesisdeclnote}[1]{%
+    {\thesisfangsongwuhao\noindent\begin{minipage}{\dimexpr\textwidth-0.25cm\relax}#1\end{minipage}\par}
 }
 \renewcommand{\texttt}[1]{{\tnr #1}}
 
@@ -275,7 +302,6 @@
 \setcounter{page}{1}
 \pagestyle{thesis-decl}
 \input{sections/originality_statement}
-\clearpage
 
 \input{sections/authorization}
 \clearpage
