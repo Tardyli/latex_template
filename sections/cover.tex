@@ -5,11 +5,13 @@
 \begin{center}
 \begingroup
 \songti\bfseries\fontsize{12pt}{24pt}\selectfont
+\newcommand{\coverclasslabel}[1]{{\fontspec[Path=fonts/,FakeBold=2.5]{simsun.ttc}\songti\bfseries #1}}
+\newcommand{\coverclassvalue}[1]{{\tnr\bfseries #1}}
 \renewcommand{\arraystretch}{1.55}
 \makebox[\textwidth][l]{%
 \begin{tabular*}{0.83\textwidth}{@{}l@{\extracolsep{\fill}}l@{}}
-中图分类号：TP391.41 & 学校代码：10621 \\
-UDC分类号：004.932 & 密级：公开
+\coverclasslabel{中图分类号：}\coverclassvalue{TP391.41} & \coverclasslabel{学校代码：}\coverclassvalue{10621} \\
+\coverclasslabel{UDC分类号：}\coverclassvalue{004.932} & \coverclasslabel{密级：公开}
 \end{tabular*}}
 \endgroup
 
@@ -21,13 +23,13 @@ UDC分类号：004.932 & 密级：公开
 
 \vspace{1.4cm}
 
-{\songti\bfseries\fontsize{16pt}{20pt}\selectfont
-\parbox{0.94\textwidth}{\centering 基于{\tnr\bfseries 3DGS}与{\tnr\bfseries StyleGAN2}的{\tnr\bfseries MRI}医学图像拟生成平台的设计与实现}}
+{\songti\bfseries\fontsize{16pt}{16pt}\selectfont
+\parbox{0.94\textwidth}{\centering\linespread{1}\selectfont 基于{\tnr\bfseries\fontsize{16pt}{16pt}\selectfont 3DGS}与{\tnr\bfseries\fontsize{16pt}{16pt}\selectfont StyleGAN2}的{\tnr\bfseries\fontsize{16pt}{16pt}\selectfont MRI}医学图像拟生成平台的设计与实现}}
 
 \vspace{0.5cm}
 
-{\tnr\bfseries\fontsize{16pt}{20pt}\selectfont
-\parbox{0.92\textwidth}{\centering Design and Implementation of an MRI Medical Image Pseudo-Generation Platform Based on 3DGS and StyleGAN2}}
+{\tnr\bfseries\fontsize{16pt}{16pt}\selectfont
+\parbox{0.92\textwidth}{\centering\linespread{1}\selectfont Design and Implementation of an MRI Medical Image Pseudo-Generation Platform Based on 3DGS and StyleGAN2}}
 
 \vspace{1.2cm}
 \end{center}
