@@ -174,6 +174,15 @@
 }{%
     \par\endgroup
 }
+\newcommand{\thesisenabsline}[1]{%
+    \noindent\hbox to\linewidth{\spaceskip=.3333em plus 1fill minus .12em\relax #1}\par
+}
+\newcommand{\thesisenabsfirstline}[1]{%
+    \noindent\hspace*{2em}\hbox to\dimexpr\linewidth-2em\relax{\spaceskip=.3333em plus 1fill minus .12em\relax #1}\par
+}
+\newcommand{\thesisenabslastline}[1]{%
+    \noindent #1\par
+}
 \renewcommand{\texttt}[1]{{\tnr #1}}
 
 \AtBeginDocument{\thesisbodyfont}
