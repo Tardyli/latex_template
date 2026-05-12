@@ -134,6 +134,25 @@
 \newcommand{\thesisdeclnote}[1]{%
     {\thesisfangsongwuhao\noindent\begin{minipage}{\dimexpr\textwidth-0.25cm\relax}#1\end{minipage}\par}
 }
+\newenvironment{thesisenabstract}{%
+    \begingroup
+    \tnr\fontsize{12pt}{20pt}\selectfont
+    \frenchspacing
+    \justifying
+    \sloppy
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{0pt}
+    \setlength{\leftskip}{0pt}
+    \setlength{\rightskip}{0pt}
+    \setlength{\parfillskip}{0pt plus 1fil}
+    \hyphenpenalty=50
+    \exhyphenpenalty=50
+    \tolerance=9999
+    \emergencystretch=2em
+    \hbadness=10001
+}{%
+    \par\endgroup
+}
 \renewcommand{\texttt}[1]{{\tnr #1}}
 
 \AtBeginDocument{\thesisbodyfont}
